@@ -1,5 +1,6 @@
 
-                 INMOBILIARIA PACIFIC LIFE 
+
+                INMOBILIARIA PACIFIC LIFE
 
 
                  Hacemos tu vida mas facil
@@ -16,4 +17,9 @@
         Nombre: Alexander Mesa Mesa
         ID: 1035831095
         Email: alexmesa1990@hotmail.com
-        Rol: 
+        Rol: Administrador base de datos
+
+        Nombre: Sandra Milena Alonso Cortes
+        ID: 53053404
+        Email: smilena1505@gmail.com
+        Rol: Analista 
