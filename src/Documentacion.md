@@ -17,7 +17,7 @@
         Nombre: Alexander Mesa Mesa
         ID: 1035831095
         Email: alexmesa1990@hotmail.com
-        Rol: Administrador base de datos
+        Rol: Administrador Base de Datos
 
         Nombre: Sandra Milena Alonso Cortes
         ID: 53053404
