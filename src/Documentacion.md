@@ -1,17 +1,25 @@
 
-        INMOBILIARIA PACIFIC LIFE 
+
+                INMOBILIARIA PACIFIC LIFE
 
 
-         Hacemos tu vida mas facil
+                 Hacemos tu vida mas facil
 
 
+                      Equipo Laboral
 
 
-            Equipo Laboral
-
-
-           Nombre: Leydi Vidal
-            ID: 1.026.256.984
+        Nombre: Leydi Vidal
+        ID: 1026256984
         Email: afroladymersi2012@gmail.com
-            Rol: Scrum Master
+        Rol: Scrum Master
 
+        Nombre: Alexander Mesa Mesa
+        ID: 1035831095
+        Email: alexmesa1990@hotmail.com
+        Rol: Administrador Base de Datos
+
+        Nombre: Sandra Milena Alonso Cortes
+        ID: 53053404
+        Email: smilena1505@gmail.com
+        Rol: Analista 
