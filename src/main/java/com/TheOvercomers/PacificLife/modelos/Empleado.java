@@ -8,12 +8,13 @@ public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String nombre:
+    private String nombre;
     private String correo;
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
     private String rol;
+
 
     public Empleado() {
     }
@@ -22,7 +23,7 @@ public class Empleado {
         this.nombre = nombre;
         this.correo = correo;
         this.empresa = empresa;
-        this.rol = rol;
+        this .rol = rol;
     }
 
     public int getId() {

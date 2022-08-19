@@ -5,6 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="Empresa")
 public class Empresa {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
