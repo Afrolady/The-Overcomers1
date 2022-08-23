@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 // Le decimos a Spring que esta clase es de servicios
 @Service
 public class EmpresaService {
@@ -36,5 +35,14 @@ public class EmpresaService {
         return false;
     }
 
+    //Metodo para eliminar empresas registradas teniendo el id
+    public boolean deleteEmpresa(Integer id) {
+        empresaRepository.deleteById(id);
+        if(getEmpresaById(id)!=null) {
+            return false;
+        }
+        return true;
     }
+
+}
 
