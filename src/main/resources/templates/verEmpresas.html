@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista de Empresas - Ciclo 3</title>
     <meta charset="utf-8">
@@ -10,8 +10,8 @@
 </head>
 <body>
 <div class="container">
-<h1>Lista de Empresas</h1> <!-- Titulo (header numero 1) -->
-
+<h1>Lista de Empresas</h1> <!-- Titulo (header número 1) -->
+<!--dibujamos la tabla-->
     <table class="table">
         <tr>
             <th>ID</th>
@@ -22,6 +22,18 @@
             <th>Editar</th>
             <th>Eliminar</th>
         </tr>
+        <!--LLenamos la tabla dibujada. Marco total "tr", Columna "th", Fila "td". -->
+        <!--En el controller creamos en veiwEmpresa un modelo con un atributo llamdo empList donde esta guardada la lista de todas las empresas-->
+        <tr th:each="empresa : ${empList}"}
+            <td th:text="${empresa.id}"></td>
+            <td th:text="${empresa.nombre}"></td>
+            <td th:text="${empresa.direccion}"></td>
+            <td th:text="${empresa.telefono}"></td>
+            <td th:text="${empresa.NIT}"></td>
+            <td><button type="button" class="btn btn-warning"><a th:href="@{/editarEmpresa}">Editar</a></button></td>
+            <td><button type="button" class="btn btn-danger"><a th:href="@{/eliminarEmpresa}">Eliminar</a></button></td>
+
+
 
     </table>
 
