@@ -20,7 +20,13 @@ public class ControllerFull {
         List<Empresa> listaEmpresas=empresaService.getAllEmpresas();
         model.addAttribute("empList",listaEmpresas);
         return "verEmpresas"; //Llama al HTML
+    }
 
+    @GetMapping("/AgregarEmpresa")
+    public String nuevaEmpresa(Model model) { //crea un objeto de tipo empresa
+        Empresa emp= new Empresa();
+        model.addAttribute("emp",emp);
+        return "agregarEmpresa";
 
     }
 }
