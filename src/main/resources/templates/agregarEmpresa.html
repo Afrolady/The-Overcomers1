@@ -31,7 +31,7 @@
         <!--Campo para nombre-->
         <div class="row">
     <div class="form-group col-md-12"> <!--crea 12 columnas.  3 para el nombre y las otras para lo demas-->
-        <label class="col-md-3" for="nombre">Pacific Life:</label>
+        <label class="col-md-3" for="nombre">Nombre de la Empresa:</label>
         <div class="col-md-6">
             <input type="text" th:field="*{nombre}" class="form-control" id="nombre" required="required"></div> <!--Le digo al formulario que lo que la persona ingrese en el input, lo debe meter en el campo nombre del objeto emp que se trajo-->
         </div>
@@ -64,7 +64,18 @@
             </div>
         </div>
 
+        <!--Boton para enviar todo y ejecutar accion-->
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-success">Crear Empresa</button>
+            </div>
+
+        </div>
+
      </form>
+
+    <br>
+    <a href="javascript: history.go(-1)" class="btn btn-info" role="button">Atrás</a> <!-- otra forma de utilizar boton (-1) Una pagina anterior-->
     </div>
 </body>
 </html>
