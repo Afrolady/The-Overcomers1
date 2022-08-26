@@ -42,14 +42,14 @@
             <td th:text="${empresa.direccion}"></td>
             <td th:text="${empresa.telefono}"></td>
             <td th:text="${empresa.NIT}"></td>
-            <td><button type="button" class="btn btn-warning"><a th:href="@{/EditarEmpresa}">Editar</a></button></td> <!--el arroba llama a los servicios que  estan en controlador y que son llevados aqui gracias a anotaciones y por eso se diferencian del sitio web por el arroba -->
-            <td><button type="button" class="btn btn-danger"><a th:href="@{/EliminarEmpresa}">Eliminar</a></button></td>
+            <td><button type="button" class="btn btn-warning"><a th:href="@{/EditarEmpresa/{id}(id=${empresa.id})}">Editar</a></button></td> <!--el arroba llama a los servicios que  estan en controlador y que son llevados aqui gracias a anotaciones y por eso se diferencian del sitio web por el arroba -->
+            <td><button type="button" class="btn btn-danger"><a th:href="@{/EliminarEmpresa/{id}(id=${empresa.id})}">Eliminar</a></button></td>
         </tr>
     </table>
 
 
     <!--Vamos a crear un boton que sirva para agregar nuevas empresas -->
-    <button type="button" class="btn btn-info"><a th:href="@{/AgregarEmpresa}" target="_blank"> Agregar Nueva Empresa</a></button>
+    <button type="button" class="btn btn-info"><a th:href="@{/AgregarEmpresa}"> Agregar Nueva Empresa</a></button>
 </div>
 
 </body>
