@@ -2,22 +2,31 @@ package com.TheOvercomers.PacificLife.controller;
 
 
 
+import com.TheOvercomers.PacificLife.modelos.Empleado;
 import com.TheOvercomers.PacificLife.modelos.Empresa;
+import com.TheOvercomers.PacificLife.service.EmpleadoService;
 import com.TheOvercomers.PacificLife.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 public class ControllerFull {
     @Autowired
     EmpresaService empresaService;
+    @Autowired
+    EmpleadoService empleadoService;
 
+
+    //EMPRESAS
     @GetMapping("/enterprises") //Ver json de todas las empresas
     public List<Empresa> verEmpresas(){
         return empresaService.getAllEmpresas();
+
     }
 
     @PostMapping("/enterprises") // POST DE EMPRESA SPRINT 3
@@ -50,8 +59,28 @@ public class ControllerFull {
         else {
             return "No se pudo eliminar la empresa con id" +id;
         }
-
-
     }
 
+    //EMPLEADOS
+    @GetMapping("/empleados") //Ver json de todos los empleados
+    public List<Empleado> verEmpleados() {
+        return empleadoService.getAllEmpleado();
     }
+
+    @PostMapping("/empleados") //Guardar un empleado nuevo
+    public Optional<Empleado> guardarEmpleado(@RequestBody Empleado empl) {
+        return Optional.ofNullable(this.empleadoService.saveOrUpdateEmpleado(empl));
+    }
+
+    @GetMapping(path = "empleados/{id}")//Consultar empleado por ID
+    public Optional<Empleado> empleadoPorID(@PathVariable("id") Integer id){
+        return this.empleadoService.getEmpleadoById(id);
+    }
+
+/*    @GetMapping("/enterprises/{id}/empleados")// Consultar empleados por empresa
+    public ArrayList<Empleado> EmpleadoPorEmpresa(@PathVariable("id") Integer id){
+        return this.empleadoService.obtenerPorEmpresa(id);
+    }
+*/
+    }
+
