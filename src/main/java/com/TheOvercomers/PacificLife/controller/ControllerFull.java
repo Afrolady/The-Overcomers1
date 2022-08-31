@@ -1,80 +1,57 @@
 package com.TheOvercomers.PacificLife.controller;
 
+
+
 import com.TheOvercomers.PacificLife.modelos.Empresa;
 import com.TheOvercomers.PacificLife.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@Controller
+
+@RestController
 public class ControllerFull {
     @Autowired
     EmpresaService empresaService;
 
-    @GetMapping({"/", "/VerEmpresas"})
-    public String viewEmpresas(Model model, @ModelAttribute("mensaje") String mensaje){
-        List<Empresa> listaEmpresas = empresaService.getAllEmpresas();
-        model.addAttribute("empList", listaEmpresas);
-        model.addAttribute("mensaje", mensaje);
-        return "verEmpresas"; //Llama al HTML
+    @GetMapping("/enterprises") //Ver json de todas las empresas
+    public List<Empresa> verEmpresas(){
+        return empresaService.getAllEmpresas();
     }
 
-    @GetMapping("/AgregarEmpresa")
-    public String nuevaEmpresa(Model model, @ModelAttribute("mensaje") String mensaje) { //crea un objeto de tipo empresa
-        Empresa emp = new Empresa();
-        model.addAttribute("emp", emp);
-        model.addAttribute("mensaje", mensaje);
-        return "agregarEmpresa";
+    @PostMapping("/enterprises") // POST DE EMPRESA SPRINT 3
+    public Empresa guardarEmpresa(@RequestBody Empresa emp){ //con Postman se puede agregar datos de una empresa como si fuera set.
+        return this.empresaService.saveOrUpdateEmpresa(emp); //Guardar el json del body como una nueva empresa o registro en la base de datos.
     }
 
-    @PostMapping("/GuardarEmpresa")
-    public String guardarEmpresa(Empresa emp, RedirectAttributes redirectAttributes) {
-        if (empresaService.saveOrUpdateEmpresa(emp) == true) {
-            redirectAttributes.addFlashAttribute("mensaje", "saveOK");
-            return "redirect:/VerEmpresas";  //El redireccionamiento es hacia el servicio no hacia la pagina web principal
+    @GetMapping(path = "enterprises/{id}")
+    public Empresa empresaPorID(@PathVariable("id") Integer id) {
+        return this.empresaService.getEmpresaById(id);
+    }
+
+    @PatchMapping("/enterprises/{id}") //Consulto una empresa, la empresa tiene una informacion, esa informacion debe ser actualizada. Los datos los saco del body .
+    public Empresa actualizarEmpresa(@PathVariable("id") Integer id, @RequestBody Empresa empresa) {
+        Empresa emp= empresaService.getEmpresaById(id);
+        emp.setNombre(empresa.getNombre());
+        emp.setDireccion(empresa.getDireccion());
+        emp.setTelefono(empresa.getTelefono());
+        emp.setNIT(empresa.getNIT());
+        return empresaService.saveOrUpdateEmpresa(emp); //Con el return se guarda la actualizacion
+
+    }
+
+    @DeleteMapping(path = "enterprises/{id}") //Eliminar registro de la base de datos
+    public String DeleteEmpresa(@PathVariable("id") Integer id){
+        boolean respuesta= this.empresaService.deleteEmpresa(id);
+        if(respuesta){ //Si respuesta es true me dice:
+            return "Se le elimino la empresa con id" +id;
         }
-        redirectAttributes.addFlashAttribute("mensaje", "saveError");
-        return "redirect:/AgregarEmpresa";
-    }
-
-   /* @GetMapping("/sprint2")
-    public String test() {
-        Empresa emp = new Empresa("Pacific Life", "Carrera 6 # 85 -68", "3213213211", "800221221-1");
-        emp.setNombre("Pacific Life LTDA");
-        System.out.println("Aqui ya se creo la empresa y se renombro");
-        return emp.getNombre();
-    }*/
-
-    @GetMapping("/EditarEmpresa/{id}")
-    public String editarEmpresa(Model model, @PathVariable Integer id, @ModelAttribute("mensaje") String mensaje) {
-        Empresa emp = empresaService.getEmpresaById(id);
-        model.addAttribute("emp", emp);
-        model.addAttribute("mensaje", mensaje);
-        return "editarEmpresa";
-    }
-
-    @PostMapping("/ActualizarEmpresa")
-    public String updateEmpresa(Empresa emp, RedirectAttributes redirectAttributes) {
-        if (empresaService.saveOrUpdateEmpresa(emp)) {
-            redirectAttributes.addFlashAttribute("mensaje", "updateOK");
-            return "redirect:/VerEmpresas";  //El redireccionamiento es hacia el servicio no hacia la pagina web principal
+        else {
+            return "No se pudo eliminar la empresa con id" +id;
         }
-        redirectAttributes.addFlashAttribute("mensaje", "updateError");
-        return "redirect:/EditarEmpresa";
-    }
 
-    @GetMapping("/EliminarEmpresa/{id}")
-   public String eliminarEmpresa(@PathVariable Integer id, RedirectAttributes redirectAttributes){
-       if (empresaService.deleteEmpresa(id)==true){
-           redirectAttributes.addFlashAttribute("mensaje","deleteOK");
-           return "redirect:/VerEmpresas";
-       }
-       redirectAttributes.addFlashAttribute("mensaje", "deleteError");
-       return "redirect:/VerEmpresas";
-   }
+
+    }
 
     }
