@@ -13,8 +13,6 @@ import java.util.ArrayList;
 @Repository //Anotación que le dice a Spring que esta clase es un repositorio
 public interface EmpresaRepository extends JpaRepository <Empresa, Integer> {
 
-    public abstract ArrayList<Empleado> findByEmpresa(Integer id);
-
 
 
 }
