@@ -23,17 +23,19 @@ public class EmpleadoService {
     }
 
     //Metodo para buscar empleados por ID
-    public Optional<Empleado> getEmpleadoById(Integer id) {  //Optional se usa para indicar que retorne cualquier cosa que encuentre sin especificarle que sea un objeto o lista
+    public Optional<Empleado> getEmpleadoById(Integer id) {  //Optional se usa para indicar que retorne cualquier cosa que encuentre sin especificarle que sea un objeto o lista o por si no regresa nada.
         return empleadoRepository.findById(id);
     }
 
     //Metodo para buscar empleados por empresa
-    /*public ArrayList<Empleado> obtenerPorEmpresa(Integer id){ //id de la empresa
-        return empleadoRepository.f
-    }*/
+    public ArrayList<Empleado> obtenerPorEmpresa(Integer id) { //id de la empresa
+        return empleadoRepository.findByEmpresa(id);
+    }
+
 
     //Metodo para guardar o actualizar registros en Empleados
     public Empleado saveOrUpdateEmpleado(Empleado empleado){
+
         return empleadoRepository.save(empleado);
     }
 
