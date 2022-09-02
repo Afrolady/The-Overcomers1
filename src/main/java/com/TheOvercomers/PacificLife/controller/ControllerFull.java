@@ -115,7 +115,6 @@ public class ControllerFull {
         return movimientosService.getAllMovimientos();
     }
 
-
     @PostMapping("/movimientos")
     public MovimientoDinero guardarMovimiento(@RequestBody MovimientoDinero movimiento){
         return movimientosService.saveOrUpdateMovimiento(movimiento);
@@ -127,18 +126,13 @@ public class ControllerFull {
     }
 
     @PatchMapping("/movimientos/{id}")//Editar o actualizar un movimiento
-    public MovimientoDinero actualizarMovimiento(@PathVariable("id") Integer id, @RequestBody MovimientoDinero movimiento){
-        MovimientoDinero mov=movimientosService.getMovimientoById(id);
+    public MovimientoDinero actualizarMovimiento(@PathVariable("id") Integer id, @RequestBody MovimientoDinero movimiento) {
+        MovimientoDinero mov = movimientosService.getMovimientoById(id);
         mov.setConcepto(movimiento.getConcepto());
         mov.setMonto(movimiento.getMonto());
         mov.setUsuario(movimiento.getUsuario());
         return movimientosService.saveOrUpdateMovimiento(mov);
     }
-
-
-
-
-
 
     }
 
