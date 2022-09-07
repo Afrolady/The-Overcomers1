@@ -1,5 +1,7 @@
 package com.TheOvercomers.PacificLife.modelos;
 
+// modificación alex
+
 import javax.persistence.*;
 
 @Entity
