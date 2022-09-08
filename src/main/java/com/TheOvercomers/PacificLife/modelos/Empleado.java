@@ -1,6 +1,6 @@
 package com.TheOvercomers.PacificLife.modelos;
 
-// modificación alex
+// *estudiando*
 
 import javax.persistence.*;
 
