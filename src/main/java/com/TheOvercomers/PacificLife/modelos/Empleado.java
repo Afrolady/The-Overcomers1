@@ -1,5 +1,7 @@
 package com.TheOvercomers.PacificLife.modelos;
 
+// *estudiando*
+
 import javax.persistence.*;
 
 @Entity
