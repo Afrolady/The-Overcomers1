@@ -17,6 +17,8 @@ public class Empresa {
 
 
     public Empresa() {
+
+
     }
 
     public Empresa(String nombre, String direccion, String telefono, String NIT) {
@@ -27,26 +29,32 @@ public class Empresa {
     }
 
     public int getId() {
+
         return id;
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
     public String getNombre() {
+
         return nombre;
     }
 
     public void setNombre(String nombre) {
+
         this.nombre = nombre;
     }
 
     public String getDireccion() {
+
         return direccion;
     }
 
     public void setDireccion(String direccion) {
+
         this.direccion = direccion;
     }
 
@@ -55,14 +63,17 @@ public class Empresa {
     }
 
     public void setTelefono(String telefono) {
+
         this.telefono = telefono;
     }
 
     public String getNIT() {
+
         return NIT;
     }
 
     public void setNIT(String NIT) {
+
         this.NIT = NIT;
     }
 }
