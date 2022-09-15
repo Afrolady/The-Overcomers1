@@ -7,10 +7,12 @@ import com.TheOvercomers.PacificLife.repo.MovimientosRepository;
 import com.TheOvercomers.PacificLife.service.EmpleadoService;
 import com.TheOvercomers.PacificLife.service.EmpresaService;
 import com.TheOvercomers.PacificLife.service.MovimientosService;
-import com.TheOvercomers.PacificLife.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +34,16 @@ public class Controller2 {
     @Autowired
     MovimientosRepository movimientosRepositor;
 
+
     //EMPRESAS
     @GetMapping ({"/","/VerEmpresas"})
     public String viewEmpresas(Model model, @ModelAttribute("mensaje") String mensaje){
         List<Empresa> listaEmpresas=empresaService.getAllEmpresas();
         model.addAttribute("emplist",listaEmpresas);
         model.addAttribute("mensaje",mensaje);
-        return "verEmpresas"; //Llamamos al HTML
+        return "verEmpresas";
+
+                /*"verEmpresas"; //Llamamos al HTML*/
     }
 
     @GetMapping("/AgregarEmpresa")
@@ -113,6 +118,8 @@ public class Controller2 {
 
     @PostMapping("/GuardarEmpleado")
     public String guardarEmpleado(Empleado empl, RedirectAttributes redirectAttributes){
+        String passEncriptada=passwordEncoder().encode(empl.getPassword());
+        empl.setPassword(passEncriptada);
         if(empleadoService.saveOrUpdateEmpleado(empl)==true){
             redirectAttributes.addFlashAttribute("mensaje","saveOK");
             return "redirect:/VerEmpleados";
@@ -134,6 +141,12 @@ public class Controller2 {
 
     @PostMapping("/ActualizarEmpleado")
     public String updateEmpleado(@ModelAttribute("empl") Empleado empl, RedirectAttributes redirectAttributes){
+        Integer id=empl.getId(); //Sacamos el id del objeto empl
+        String Oldpass=empleadoService.getEmpleadoById(id).get().getPassword(); //Con ese id consultamos la contraseña que ya esta en la base
+        if(!empl.getPassword().equals(Oldpass)){
+            String passEncriptada=passwordEncoder().encode(empl.getPassword());
+            empl.setPassword(passEncriptada);
+        }
         if(empleadoService.saveOrUpdateEmpleado(empl)){
             redirectAttributes.addFlashAttribute("mensaje","updateOK");
             return "redirect:/VerEmpleados";
@@ -245,5 +258,18 @@ public class Controller2 {
         Long sumaMonto=movimientosService.MontosPorEmpresa(id);
         model.addAttribute("SumaMontos",sumaMonto);
         return "verMovimientos"; //Llamamos al HTML
+    }
+
+    //Controlador que me lleva al template de No autorizado
+    @RequestMapping(value="/Denegado")
+    public String accesoDenegado(){
+        return "accessDenied";
+    }
+
+
+    //Metodo para encriptar contraseñas
+    @Bean //Con Bean este metodo va a ir hasta donde tiene que ir a pedir prestado este objeto y despues de va a poder usa
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
