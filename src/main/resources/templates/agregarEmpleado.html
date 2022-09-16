@@ -20,6 +20,10 @@
 <body>
 
 <div class="container">
+
+  <p th:inline="text" class="text-right">User: [[${#httpServletRequest.remoteUser}]]</p>
+  <button type="button" class="btn btn-danger" style="float:right"><a th:href="@{/logout}">Cerrar Sesión</a></button>
+
   <h1> Agregue aqui los datos del Empleado</h1>
   <br>
   <!--Crear formulario para llenar los datos de la empresa y guardarlo en el objeto emp -->
@@ -60,8 +64,8 @@
         <label class="col-md-3" for="rol">Rol del empleado:</label>
         <div class="col-md-6">
           <select th:field="*{rol}" class="form-control" id="rol" required="required">
-            <option th:value=1>Administrativo</option>
-            <option th:value=2>Operativo</option>
+            <option th:value='ROLE_ADMIN'>Administrativo</option>
+            <option th:value='ROLE_USER'>Operativo</option>
           </select>
         </div>
       </div>
