@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -195,8 +197,11 @@ public class Controller2 {
         MovimientoDinero movimiento= new MovimientoDinero();
         model.addAttribute("mov",movimiento);
         model.addAttribute("mensaje",mensaje);
-        List<Empleado> listaEmpleados= empleadoService.getAllEmpleado();
-        model.addAttribute("emplelist",listaEmpleados);
+        //List<Empleado> listaEmpleados= empleadoService.getAllEmpleado(); Este ya no se necesita porque ahora se utilizara el id no el nombre del usuario
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication(); //Me trae toda la informacion relacionada con las personas que estan logeadastodos los permisos que se dan en el secConfig
+        String correo=auth.getName(); //El correo es el username
+        Integer idEmpleado=movimientosService.IdPorCorreo(correo);
+        model.addAttribute("idEmpleado",idEmpleado);
         return "agregarMovimiento"; //Llamar HTML
     }
 

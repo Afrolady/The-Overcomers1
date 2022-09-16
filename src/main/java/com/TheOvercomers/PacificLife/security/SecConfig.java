@@ -1,5 +1,6 @@
 package com.TheOvercomers.PacificLife.security;
 
+import com.TheOvercomers.PacificLife.handler.CustomSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,8 +18,8 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource; //copia virtual de la base de datos donde consulta la informacion de la base de datos de una forma mas eficiente.
 
-    /*@Autowired
-    CustomSuccessHandler customSuccessHandler;*/
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
@@ -32,14 +33,14 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","VerEmpresas/**").hasRole("ADMIN")
-                .antMatchers("/VerEmpleados/**").hasRole("ADMIN")
+                .antMatchers("/","VerEmpresas/**").hasRole("ADMIN") //Dentro de antmatchers me pregunta cuales son las paginas o las rutas del navegador a las cuales tengo derecho acceder segun mi rol. Aqui a la pagina principal y a la pagina ver empresas y a sus derivados por eso tiene el VerEmpresas** con el rol ADMIN.  Ese rol lo saca de lo anterior de los authorities.
+                .antMatchers("/VerEmpleados/**").hasRole("ADMIN") //Solo quien tiene un rol ADMIN puede acceder a Ver  Empleados** y a sus derivados
                 .antMatchers("/Empresa/**").hasRole("ADMIN")
                 .antMatchers("/Empleado/**").hasRole("ADMIN")
-                .antMatchers("/VerMovimiento/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/VerMovimiento/**").hasAnyRole("ADMIN","USER") //tanto los administrativos como los users pueden ver todos los movimientos.
                 .antMatchers("/AgregarMovimiento/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/EditarMovimiento/**").hasAnyRole("ADMIN","USER")
-               // .and().formLogin().successHandler(customSuccessHandler)
+                .and().formLogin().successHandler(customSuccessHandler)
                 .and().exceptionHandling().accessDeniedPage("/Denegado")
                 .and().logout().permitAll();
     }
