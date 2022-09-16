@@ -143,7 +143,7 @@ public class Controller2 {
     public String updateEmpleado(@ModelAttribute("empl") Empleado empl, RedirectAttributes redirectAttributes){
         Integer id=empl.getId(); //Sacamos el id del objeto empl
         String Oldpass=empleadoService.getEmpleadoById(id).get().getPassword(); //Con ese id consultamos la contraseña que ya esta en la base
-        if(!empl.getPassword().equals(Oldpass)){
+        if(!empl.getPassword().equals(Oldpass)){ //equals se utiliza para comparar strings (aqui la contraseña encriptada), mientras que == compara numeros.
             String passEncriptada=passwordEncoder().encode(empl.getPassword());
             empl.setPassword(passEncriptada);
         }
