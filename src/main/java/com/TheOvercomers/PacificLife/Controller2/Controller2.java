@@ -267,7 +267,7 @@ public class Controller2 {
 
     //Controlador que me lleva al template de No autorizado
     @RequestMapping(value="/Denegado")
-    public String accesoDenegado(){
+    public String accesoDenegado() {
         return "accessDenied";
     }
 

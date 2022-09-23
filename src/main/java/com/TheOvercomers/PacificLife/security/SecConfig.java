@@ -44,5 +44,4 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/Denegado")
                 .and().logout().permitAll();
     }
-
 }

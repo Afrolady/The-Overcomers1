@@ -63,8 +63,8 @@
       <div class="form-group col-md-12">
         <label class="col-md-3" for="usuario">Empleado responsable:</label>
         <div class="col-md-6">
-          <select th:field="*{usuario}" class="form-control" id="usuario" required="required">
-            <option th:each="empleado : ${emplelist}" th:text="${empleado.nombre}" th:value="${empleado.id}"></option>
+          <select th:field="*{usuario}" class="form-control" id="usuario" required="required" readonly>
+            <option th:text="${#httpServletRequest.remoteUser}" th:value="${idEmpleado}"></option>
           </select>
         </div>
       </div>
